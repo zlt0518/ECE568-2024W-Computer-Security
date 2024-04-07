@@ -1,0 +1,22 @@
+Part 1
+
+Generating an otpauth:// URI
+
+To generate the QR code, we used urlEncode() on accountName and issuers. Since the secret is a hex string, I created a function to convert the hex string to a binary string of size 10. The conversion is done by performing an OR operation on left-shifted characters stored at even indices with the characters stored at odd indices for every consecutive two bytes. After the conversion, we pass the string to base32_encode() to convert the binary string to base32 strings. Lastly, we displayed the QR code through format string.
+
+Validating the codes
+
+The secret was converted to a binary string format, and we initialized the inner_padding and the outer_padding arrays with the first 10 elements filled with the binary formatted secret, and filled the rest with 0. We then performed XOR on both arrays. The message is current time divided by 30 seconds, and treated as the 8 byte moving factor. By using the HMAC algorithm and converting the result to a binary string based on the algorithm in rfc6238, we obtained the server_TOTP. The code is valid when server_TOTP is the same as the provided TOTP_string and vice versa.
+Part 2
+
+getAuthenticatorStatus:
+
+This part send a get request(REST API) to the bio-connect server and would receive a string that contains the status of our enrollment and the info of four types of biometric identification. It will return a success if the status of the enrollment is active and has at least one of the biometric identification enrolled.
+
+sendStepup:
+
+This part would send a post request to the server with users id and and request for a unique user verification id that we would use to compare in our login authentication part. We would save the return verification id in our user data structure for later use
+
+getStepupStatus:
+
+This part we would send a get request to the server to check if the user has responded to the authentication request and would proceed if the return verification is the same as the verification id we saved in the sent Step up part.

