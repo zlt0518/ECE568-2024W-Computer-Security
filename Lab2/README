@@ -1,6 +1,6 @@
 Part 1
 
-Generating an otpauth:// URI
+Generating an URL:
 
 To generate the QR code, we used urlEncode() on accountName and issuers. Since the secret is a hex string, I created a function to convert the hex string to a binary string of size 10. The conversion is done by performing an OR operation on left-shifted characters stored at even indices with the characters stored at odd indices for every consecutive two bytes. After the conversion, we pass the string to base32_encode() to convert the binary string to base32 strings. Lastly, we displayed the QR code through format string.
 
@@ -11,7 +11,7 @@ Part 2
 
 getAuthenticatorStatus:
 
-This part send a get request(REST API) to the bio-connect server and would receive a string that contains the status of our enrollment and the info of four types of biometric identification. It will return a success if the status of the enrollment is active and has at least one of the biometric identification enrolled.
+This part sends a get request(REST API) to the bio-connect server and receives a string that contains the status of our enrollment and the info of four types of biometric identification. It will return a success if the status of the enrollment is active and has at least one of the biometric identification enrolled.
 
 sendStepup:
 
