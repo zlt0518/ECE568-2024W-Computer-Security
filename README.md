@@ -6,6 +6,6 @@ The repository contains all the source code written by two students for Lab 1-4
 Lab1: 25/20 \
 Lab2: 20/20 \
 Lab3: 18.5/20 \
-Lab4: TBD 
+Lab4: 20/20
 
 Please follow the academic integrity at the University of Toronto.
