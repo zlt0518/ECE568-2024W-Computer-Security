@@ -1,5 +1,5 @@
-# ECE568S-Computer-Security-Labs
-ECE568S: Computer Security 2024 Labs at the University of Toronto taught by Prof.Courtney Gibson 
+# ECE568W-Computer-Security-Labs
+ECE568W: Computer Security 2024 Labs at the University of Toronto taught by Prof.Courtney Gibson 
 
 The repository contains all the source code written by two students for Lab 1-4
 
